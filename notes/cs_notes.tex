@@ -1,0 +1,200 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{pstricks}
+\usepackage{pst-node}
+\usepackage{redefine-sections}
+\usepackage[dvips]{geometry}
+\geometry{nohead,margin=2cm}
+
+\newcommand{\poslen}{r_\mathrm{0}}
+\newcommand{\dislen}{r_\mathrm{D}}
+\newcommand{\posvec}{\bar{r}_\mathrm{0}}
+\newcommand{\disvec}{\bar{r}_\mathrm{D}}
+\newcommand{\nexvec}{\bar{r}_\mathrm{next}}
+
+\begin{document}
+\begin{centering}
+\noindent{\sf\huge Scattering of light by circum-stellar dust}\\
+\end{centering}
+\hspace{2ex}
+
+\section*{Scattering, absorption and extinction}
+\emph{Based on Ariel Goobar's notes. See
+  also~\cite{2008ApJ...686L.103G}}.\hfill\\[2ex]
+In order to simulate photons propagating through dust we need
+expressions for the mean free paths for \emph{scattering}, $\lambda_s$
+and \emph{absorption}, $\lambda_a$, in terms of quantities that we wish
+to put into the simulation such as e.g. the observed colour excess,
+$E(B-V)$ for the $B-V$ colour. The colour excess is defined as the
+difference between the observed, $(B-V)_o$, and emitted colour,
+$(B-V)_e$, of an object,
+\begin{equation}
+E(B-V) = (B-V)_o - (B-V)_e =
+-\underbrace{\frac{2.5}{\ln10}}_\varepsilon\left(\ln\frac{f_o^B}{f_o^V}
+  -\ln\frac{f_e^B}{f_e^V}\right) = 
+  -\varepsilon\ln\left(\frac{f_o^B}{f_e^B}\cdot\frac{f_e^V}{f_o^V}\right)\,,
+\label{eq:excess}
+\end{equation}
+where $f_e$ and $f_o$ are the emitted and observed fluxes of the
+object respectively. The observed flux is the difference between the
+emitted and extincted flux, $f_r$, which can be calculated over a
+distance $r$ for the extinction mean free path $\lambda$ as
+\[
+f_r = f_e\int_0^r\frac{1}{\lambda}e^{-x/\lambda}\, dx =
+f_e\left(1-e^{-r/\lambda}\right)\, .
+\]
+giving
+\begin{eqnarray*}
+  f_o^B & = & f_e^B - f_r^B =
+    f_e^B\left(1 - 1 +e^{-r/\lambda_B}\right) = f_e^Be^{-r/\lambda_B}\,,\\
+  f_o^V & = & f_e^V - f_r^V = f_e^Ve^{-r/\lambda_V}\,.
+\end{eqnarray*}
+Inserting these into equation~(\ref{eq:excess}), yields
+\begin{equation}
+E(B-V) = -\varepsilon\ln\left[\exp\left(-\frac{r}{\lambda_B} + 
+    \frac{r}{\lambda_V}\right)\right] =
+\varepsilon\left(\frac{r}{\lambda_B} - \frac{r}{\lambda_V}\right) =
+\varepsilon rn\left(\sigma_B - \sigma_V\right)\,,
+\label{eq:excess2}
+\end{equation}
+where the relation $\lambda = (n\sigma)^{-1}$ between the mean free
+path, the number density, $n$, and the cross-section, $\sigma$, was
+used in the last step.
+
+Bruce Draine
+provides\footnote{\texttt{http://www.astro.princeton.edu/~draine/dust/dust.diel.html}} tables for $\alpha =
+\sigma_a/M$ and the albedo, $a$,
+\begin{equation}
+  a = \frac{\sigma_s}{\sigma_a + \sigma_s}
+  \quad\Rightarrow\quad
+  \sigma_s = \sigma_a\left(\frac{1}{a} - 1\right)^{-1}
+  \quad\Rightarrow\quad
+  \lambda_s = \left(\frac{1}{a} - 1\right)\lambda_a
+  \,,
+  \label{eq:sigmas}
+\end{equation}
+for different dust environments. Here, $\sigma_s$ and $\sigma_a$ are
+the scattering and absorptions cross-sections respectively and $M$ is
+the molar mass of the dust particles.
+
+The last relation allows us to calculate the mean free path for
+scattering from the absorption length, but an expression for the
+latter is still needed. Using these relations the extinction
+cross-section, $\sigma$, which is the sum of both scattering and
+absorption, can be calculated as
+\[
+\sigma = \sigma_a + \sigma_s = \frac{\sigma_a}{1 - a} =
+\frac{\alpha M}{1-a}\,.
+\]
+The difference, $\sigma_B-\sigma_V$, between extinction cross section
+can then be expressed as
+\[
+\sigma_B-\sigma_V = M\left(\frac{\alpha_B}{1-a_B} -
+  \frac{\alpha_V}{1-a_V}\right)\,,
+\]
+which together with equation~(\ref{eq:excess2}) gives the number
+density as
+\[
+n = \frac{E(B-V)}{\varepsilon r\left(\sigma_B-\sigma_V\right)} =
+\frac{E(B-V)}{Mr\varepsilon}
+\left(\frac{\alpha_B}{1-a_B} -
+  \frac{\alpha_V}{1-a_V}\right)^{-1} \, ,
+\]
+This relation can now be used to express the mean free path for
+absorption as
+\[
+\lambda_a = \frac{1}{n\sigma_a} = \frac{1}{nM\alpha} =
+\frac{rM\varepsilon}{E(B-V)M\alpha} \left(\frac{\alpha_B}{1-a_B} -
+  \frac{\alpha_V}{1-a_V}\right) =
+\frac{\varepsilon}{\alpha}\left(\frac{\alpha_B}{1-a_B} -
+    \frac{\alpha_V}{1-a_V}\right)\frac{r}{E(B-V)}\, .
+\]
+The interpretation of the last factor might require some
+clarification. Here, $r$, is the thickness of a homogeneous dust layer
+and $E(B-V)$ is the colour excess due to \emph{extinction} (i.e.
+neither absorbed nor scattered photons will reach the observer) of a
+light source observed through the dust layer.
+
+For a circum-stellar dust the colour excess is different, since in
+this scenario also scattered photons will be observed.
+
+
+\section*{A spherical dust shell}
+A simple model of a spherical dust-shell with radius, $r$, and inner
+radius, $r_i = R\cdot r$, where $0<R<1$ is illustrated in
+Figure~\ref{fig:sphere}. Also shown in the figure is a photon leaving
+the sphere (solid line).
+\begin{figure}[ht]
+  \centering
+  \input{sphere}
+  \caption{Illustration of a scattered photon (\emph{thin solid line})
+    propagating through dust shell. The figure shows the intersecting
+    plane of the sphere that is defined by the two vectors $\posvec$
+    and $\disvec$.\label{fig:sphere}}
+\end{figure}
+The current position of the photon is defined by the vector, $\posvec
+= (x,y,z)$, and the next position, $\nexvec$, is given by $\nexvec =
+\posvec+\disvec$, where $\disvec$ is the displacement vector $\disvec
+= (dx,dy,dz)$.
+
+\paragraph{Photon travelling inside the shell} The impact parameter,
+$i$, is the minimum distance to the centre of the sphere for any given
+photon-path, and can be defined as.
+\[
+i = \left\{%
+  \begin{array}{ll}
+    \poslen\cdot\sin\gamma & \textrm{if } 0 \leq \gamma \leq \frac{\pi}{2}\,,\\
+    \poslen                & \textrm{if } \frac{\pi}{2} < \gamma\,.
+  \end{array} \right.
+\]
+Here, $\gamma$ is given by
+\begin{eqnarray*}
+  \posvec\cdot\disvec & = & \poslen\dislen\cos(\pi-\gamma) = 
+  x\cdot dx + y\cdot dy + z\cdot dz\\
+  \cos\gamma & = & -\cos(\pi-\gamma) = -\frac{x\cdot dx + y\cdot dy + z\cdot dz}{%
+    \poslen\dislen}
+\end{eqnarray*}
+If $i < r_i$, the photon will cross the inner radius of the shell and
+then re-enter the shell. This will in turn extend the mean free path
+of the photon by the amount $2q = 2\sqrt{r_i^2 + i^2}$, which is the
+length of the path within $r_i$.
+
+
+\paragraph{Path length} For each distance between interactions,
+$\dislen$ is added to the total distance travelled by the photon
+before leaving the sphere. For a scattered photon leaving the sphere,
+the last distance, $s$, travelled inside the sphere is given by
+\[
+  s^2 = r^2 + \poslen^2 - 2r\poslen\cos\left(\pi-\theta-\gamma\right)\,,
+\]
+where $\cos\theta = \sin\gamma \cdot \poslen/r$. The distance
+travelled by a scattered photon should be compared to the distance
+travelled by a non-interacting photon, which means that the distance,
+$d$, between the surface of the sphere and the plane (thick, solid
+line in Figure~\ref{fig:sphere}) perpendicular to $\disvec$ at
+distance $r$ from the centre must be added to the total distance,
+where $d$ is given by
+\begin{eqnarray*}
+  l & = & 2r\cdot\sin\frac{\theta}{2}\\
+  \varphi & = & \pi - \frac{\pi}{2} - \frac{\theta}{2} =
+  \frac{\pi-\theta}{2}\\
+  d & = & l\cdot\cos\varphi =
+  2r\cdot\sin\frac{\theta}{2}\cos\frac{\pi-\theta}{2} =
+  2r\cdot\sin^2\frac{\theta}{2}\, .
+\end{eqnarray*}
+The total distance travelled, $D$, can then be summarised as
+\[
+D = \left\{%
+  \begin{array}{ll}
+    r & \textrm{for non-interacting photons}\,,\\
+    \sum {\dislen}_n + s + d & \textrm{for scattered photons}\,.
+  \end{array}\right.
+\]
+
+\begin{thebibliography}{99}
+  \bibitem{2008ApJ...686L.103G}
+    Goobar,~A., \emph{Low $R_{V}$ from Circumstellar Dust around
+      Supernova}, ApJ, \textbf{686}, 2008
+\end{thebibliography}
+
+\end{document}
+

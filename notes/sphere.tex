@@ -1,0 +1,48 @@
+\psset{unit=.7mm}
+\pspicture(-120,-30)(100,90)
+\psarc[fillstyle=solid,fillcolor=lightgray]{-}{80.0}{10.0}{190.0}
+\psarc[fillstyle=solid,fillcolor=white]{-}{52.0}{9.0}{191.0}
+\psline[linestyle=dashed]{->}(0.,0.)(65.00,30.00)
+\psline[linewidth=1.0pt,linecolor=black]{->}(65.00,30.00)(-105.00,60.00)
+\pcline[linestyle=none](0.0,0.0)(65.0,30.0)
+\bput{:U}{$\posvec = (x,y,z)$}
+\pcline[linestyle=none](-105.0,60.0)(65.0,30.0)
+\aput{:U}{$\disvec$}
+\rput[c](65.0,30.0){  \SpecialCoor\psarc{-}{10}{169.992}{204.775}
+  \rput[c](14.000;187.384){$\gamma$}}
+\psline[linestyle=dashed](0.00,0.00)(38.80,34.62)
+\pcline[linestyle=none](0.00,0.00)(38.80,34.62)
+\aput{:U}{$r_i$}
+\pcline[linestyle=none](7.10,40.22)(38.80,34.62)
+\aput{:U}{$q$}
+\psline[linestyle=dashed](0.,0.)(7.10,40.22)
+\pcline[linestyle=none](0.,0.)(7.10,40.22)
+\aput{:U}{$i$}
+\rput[c]{169.992}(7.10,40.22){\psline(0.00,4.00)(-4.00,4.00)(-4.00,0.00)}
+\rput[c](-60.646,52.173){  \SpecialCoor\psarc{-}{15}{319.295}{349.992}
+  \rput[c](18.000;334.644){$\theta$}}
+\rput[c]{154.64}(0.,0.){
+  \SpecialCoor
+  \psline[linestyle=dashed](0.;0.)(80.00;-15.348)
+  \pcline[linestyle=none](80.00;-15.35)(0.;0.)
+  \aput{:U}{$r$}
+  \psline[linestyle=dashed](0.;0.)(80.00;15.348)
+  \psarc{-}{30}{-15.35}{0.00}
+  \rput[c]{180}(35;-7.674){$\frac{\theta}{2}$}
+  \psline[linestyle=dashed](0.,0.)(77.15;0.000)
+  \psline[linestyle=dashed](80.00;-15.35)(80.00;15.35)
+  \pcline[linestyle=none](80.00;15.35)(80.00;-15.348)
+  \bput*{:R}{$l$}
+ \rput{-166.85}(80.00;15.35){
+  \SpecialCoor
+  \psline[linewidth=2pt,linestyle=solid]{-}(30;-90)(65.;90.)
+  \pcline[linestyle=none](30;-90)(65.;90.)
+  \aput{:R}{$P$}}
+ \rput{90}(80.00;-15.35){
+   \psarc{-}{7}{-74.65}{74.65}
+   \psline(6.00;-37.33)(8.00;-37.33)
+   \psline(6.00;37.33)(8.00;37.33)
+   \rput{-244.64}(12.00;37.33){$\varphi$}}}
+\pcline[linestyle=none](-71.69,54.12)(-60.65,52.17)
+\aput{:U}{$d$}
+\endpspicture
