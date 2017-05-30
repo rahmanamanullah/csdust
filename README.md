@@ -19,5 +19,5 @@ circumstellar dust would affect observables of Type Ia supernovae.
 
 https://arxiv.org/abs/1103.1960
 
-The package depends on Christian Walck's random number generator (included)
+The package depends on Christian Walck's random number generator
 and CFITSIO (https://heasarc.gsfc.nasa.gov/fitsio/fitsio.html).
