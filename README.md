@@ -1,7 +1,5 @@
-SYNOPSIS
 Simulation package for photon scatter and absorption by a dust shell
 
-MOTIVATION
 This code can be used to study the effect on the light from circum stellar
 dust.  Photons are transferred through a circum stellar dust layer where the
 multiple scattering of each photon is taken into account.
@@ -21,6 +19,5 @@ circumstellar dust would affect observables of Type Ia supernovae.
 
 https://arxiv.org/abs/1103.1960
 
-INSTALLATION
 The package depends on Christian Walck's random number generator (included)
 and CFITSIO (https://heasarc.gsfc.nasa.gov/fitsio/fitsio.html).
